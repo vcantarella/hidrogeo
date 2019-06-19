@@ -19,3 +19,15 @@ hj_draw <- sapply(u, function(x){
   return(a*(42.5/(4*pi*18.6)))
 })
 hj_draw
+
+c_pi <- (30.5/(4*sqrt(18.6*0.0002)))*sqrt(0.015*0.003/3.05)
+
+
+
+h_60_draw <- sapply(u, function(x){
+  integran <- function(y) {(1/y)*exp(-y)*erfc(c_pi*sqrt(x)/sqrt(y*(y-x)))}
+  a <- integrate(integran, lower = x, upper = Inf)
+  a <- a[[1]]
+  return(a*(42.5/(4*pi*18.6)))
+})
+h_60_draw
