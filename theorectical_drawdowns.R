@@ -1,9 +1,22 @@
-time <- c(0.00694, 0.04167, 0.2083, 1)
-u <- 30.5^2*0.0002/(4*18.6*time)
-u
+time <- c(0.1, 1, 10.001, 10.1, 11, 20) #Time in sec
+u_1 <- 1^2*0.00025/(4*(73/(24*60*60))*time)
+u_2 <- 1^2*0.00025/(4*(73/(24*60*60))*(time-10))
 library(pracma)
-drawdown <- (42.5/(4*pi*18.6))*expint_E1(u)
-drawdown             
+
+
+drawdown_1 <- ((150/(24*60*60))/(4*pi*(73/(24*60*60))))*expint_E1(u_1)
+
+drawdown_2 <- ((150/(24*60*60))/(4*pi*(73/(24*60*60))))*expint_E1(u_1)+
+  ((-150/(24*60*60))/(4*pi*(73/(24*60*60))))*expint_E1(u_2)
+
+drawdown_2 <- as.numeric(drawdown_2)
+
+drawdown <- c(drawdown_1[1:3], drawdown_2[4:6])
+
+drawdown
+
+library(ggplot2)
+qplot(time, drawdown, geom = "smooth")
 
 30.5*sqrt(0.015/(16.8*3.05))
 
